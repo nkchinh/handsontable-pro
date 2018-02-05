@@ -20,8 +20,8 @@
  * RELIABILITY AND PERFORMANCE WILL MEET YOUR REQUIREMENTS OR THAT THE OPERATION OF THE SOFTWARE WILL BE
  * UNINTERRUPTED OR ERROR FREE.
  * 
- * Version: 1.15.1
- * Release date: 25/01/2018 (built at 25/01/2018 10:21:21)
+ * Version: 1.15.2
+ * Release date: 12/02/2018 (built at 05/02/2018 12:24:36)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -5260,7 +5260,7 @@ function _injectProductInfo(key, element) {
 
   if (trial || schemaValidity) {
     if (schemaValidity) {
-      var releaseTime = Math.floor((0, _moment2.default)('25/01/2018', 'DD/MM/YYYY').toDate().getTime() / 8.64e7);
+      var releaseTime = Math.floor((0, _moment2.default)('12/02/2018', 'DD/MM/YYYY').toDate().getTime() / 8.64e7);
       var keyGenTime = _extractTime(key);
 
       if (keyGenTime > 45000 || keyGenTime !== parseInt(keyGenTime, 10)) {
@@ -7261,7 +7261,7 @@ exports.ITEMS = exports.UNDO = exports.SEPARATOR = exports.ROW_BELOW = exports.R
 
 var _predefinedItems2;
 
-var _alignment = __webpack_require__(310);
+var _alignment = __webpack_require__(312);
 
 Object.defineProperty(exports, 'ALIGNMENT', {
   enumerable: true,
@@ -7270,7 +7270,7 @@ Object.defineProperty(exports, 'ALIGNMENT', {
   }
 });
 
-var _clearColumn = __webpack_require__(311);
+var _clearColumn = __webpack_require__(313);
 
 Object.defineProperty(exports, 'CLEAR_COLUMN', {
   enumerable: true,
@@ -7279,7 +7279,7 @@ Object.defineProperty(exports, 'CLEAR_COLUMN', {
   }
 });
 
-var _columnLeft = __webpack_require__(312);
+var _columnLeft = __webpack_require__(314);
 
 Object.defineProperty(exports, 'COLUMN_LEFT', {
   enumerable: true,
@@ -7288,7 +7288,7 @@ Object.defineProperty(exports, 'COLUMN_LEFT', {
   }
 });
 
-var _columnRight = __webpack_require__(313);
+var _columnRight = __webpack_require__(315);
 
 Object.defineProperty(exports, 'COLUMN_RIGHT', {
   enumerable: true,
@@ -7297,7 +7297,7 @@ Object.defineProperty(exports, 'COLUMN_RIGHT', {
   }
 });
 
-var _readOnly = __webpack_require__(314);
+var _readOnly = __webpack_require__(316);
 
 Object.defineProperty(exports, 'READ_ONLY', {
   enumerable: true,
@@ -7306,7 +7306,7 @@ Object.defineProperty(exports, 'READ_ONLY', {
   }
 });
 
-var _redo = __webpack_require__(315);
+var _redo = __webpack_require__(317);
 
 Object.defineProperty(exports, 'REDO', {
   enumerable: true,
@@ -7315,7 +7315,7 @@ Object.defineProperty(exports, 'REDO', {
   }
 });
 
-var _removeColumn = __webpack_require__(316);
+var _removeColumn = __webpack_require__(318);
 
 Object.defineProperty(exports, 'REMOVE_COLUMN', {
   enumerable: true,
@@ -7324,7 +7324,7 @@ Object.defineProperty(exports, 'REMOVE_COLUMN', {
   }
 });
 
-var _removeRow = __webpack_require__(317);
+var _removeRow = __webpack_require__(319);
 
 Object.defineProperty(exports, 'REMOVE_ROW', {
   enumerable: true,
@@ -7333,7 +7333,7 @@ Object.defineProperty(exports, 'REMOVE_ROW', {
   }
 });
 
-var _rowAbove = __webpack_require__(318);
+var _rowAbove = __webpack_require__(320);
 
 Object.defineProperty(exports, 'ROW_ABOVE', {
   enumerable: true,
@@ -7342,7 +7342,7 @@ Object.defineProperty(exports, 'ROW_ABOVE', {
   }
 });
 
-var _rowBelow = __webpack_require__(319);
+var _rowBelow = __webpack_require__(321);
 
 Object.defineProperty(exports, 'ROW_BELOW', {
   enumerable: true,
@@ -7360,7 +7360,7 @@ Object.defineProperty(exports, 'SEPARATOR', {
   }
 });
 
-var _undo = __webpack_require__(320);
+var _undo = __webpack_require__(322);
 
 Object.defineProperty(exports, 'UNDO', {
   enumerable: true,
@@ -8324,6 +8324,8 @@ var _object = __webpack_require__(2);
 
 var _number = __webpack_require__(4);
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var MIXIN_NAME = 'arrayMapper';
 
 /**
@@ -8333,41 +8335,45 @@ var arrayMapper = {
   _arrayMap: [],
 
   /**
-   * Get value by map index.
+   * Get translated index by its physical index.
    *
-   * @param {Number} index Array index.
-   * @return {*} Returns value mapped to passed index.
+   * @param {Number} physicalIndex Physical index.
+   * @return {Number|null} Returns translated index mapped by passed physical index.
    */
-  getValueByIndex: function getValueByIndex(index) {
-    var value = void 0;
+  getValueByIndex: function getValueByIndex(physicalIndex) {
+    var length = this._arrayMap.length;
+    var translatedIndex = null;
 
-    // eslint-disable-next-line no-cond-assign, no-return-assign
-    return (value = this._arrayMap[index]) === void 0 ? null : value;
+    if (physicalIndex < length) {
+      translatedIndex = this._arrayMap[physicalIndex];
+    }
+
+    return translatedIndex;
   },
 
 
   /**
-   * Get map index by its value.
+   * Get physical index by its translated index.
    *
-   * @param {*} value Value to search.
-   * @returns {Number} Returns array index.
+   * @param {*} translatedIndex Value to search.
+   * @returns {Number|null} Returns a physical index of the array mapper.
    */
-  getIndexByValue: function getIndexByValue(value) {
-    var index = void 0;
+  getIndexByValue: function getIndexByValue(translatedIndex) {
+    var physicalIndex = void 0;
 
     // eslint-disable-next-line no-cond-assign, no-return-assign
-    return (index = this._arrayMap.indexOf(value)) === -1 ? null : index;
+    return (physicalIndex = this._arrayMap.indexOf(translatedIndex)) === -1 ? null : physicalIndex;
   },
 
 
   /**
    * Insert new items to array mapper starting at passed index. New entries will be a continuation of last value in the array.
    *
-   * @param {Number} index Array index.
+   * @param {Number} physicalIndex Array index.
    * @param {Number} [amount=1] Defines how many items will be created to an array.
    * @returns {Array} Returns added items.
    */
-  insertItems: function insertItems(index) {
+  insertItems: function insertItems(physicalIndex) {
     var _this = this;
 
     var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -8376,7 +8382,7 @@ var arrayMapper = {
     var addedItems = [];
 
     (0, _number.rangeEach)(amount - 1, function (count) {
-      addedItems.push(_this._arrayMap.splice(index + count, 0, newIndex + count));
+      addedItems.push(_this._arrayMap.splice(physicalIndex + count, 0, newIndex + count));
     });
 
     return addedItems;
@@ -8386,32 +8392,32 @@ var arrayMapper = {
   /**
    * Remove items from array mapper.
    *
-   * @param {Number} index Array index.
+   * @param {Number} physicalIndex Array index.
    * @param {Number} [amount=1] Defines how many items will be created to an array.
    * @returns {Array} Returns removed items.
    */
-  removeItems: function removeItems(index) {
+  removeItems: function removeItems(physicalIndex) {
     var _this2 = this;
 
     var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
     var removedItems = [];
 
-    if (Array.isArray(index)) {
+    if (Array.isArray(physicalIndex)) {
       var mapCopy = [].concat(this._arrayMap);
 
       // Sort descending
-      index.sort(function (a, b) {
+      physicalIndex.sort(function (a, b) {
         return b - a;
       });
 
-      removedItems = (0, _array.arrayReduce)(index, function (acc, item) {
+      removedItems = (0, _array.arrayReduce)(physicalIndex, function (acc, item) {
         _this2._arrayMap.splice(item, 1);
 
         return acc.concat(mapCopy.slice(item, item + 1));
       }, []);
     } else {
-      removedItems = this._arrayMap.splice(index, amount);
+      removedItems = this._arrayMap.splice(physicalIndex, amount);
     }
 
     return removedItems;
@@ -8421,13 +8427,13 @@ var arrayMapper = {
   /**
    * Unshift items (remove and shift chunk of array to the left).
    *
-   * @param {Number|Array} index Array index or Array of indexes to unshift.
+   * @param {Number|Array} physicalIndex Array index or Array of indexes to unshift.
    * @param {Number} [amount=1] Defines how many items will be removed from an array (when index is passed as number).
    */
-  unshiftItems: function unshiftItems(index) {
+  unshiftItems: function unshiftItems(physicalIndex) {
     var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-    var removedItems = this.removeItems(index, amount);
+    var removedItems = this.removeItems(physicalIndex, amount);
 
     function countRowShift(logicalRow) {
       // Todo: compare perf between reduce vs sort->each->brake
@@ -8455,25 +8461,37 @@ var arrayMapper = {
   /**
    * Shift (right shifting) items starting at passed index.
    *
-   * @param {Number} index Array index.
+   * @param {Number} physicalIndex Array index.
    * @param {Number} [amount=1] Defines how many items will be created to an array.
    */
-  shiftItems: function shiftItems(index) {
+  shiftItems: function shiftItems(physicalIndex) {
     var _this3 = this;
 
     var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
     this._arrayMap = (0, _array.arrayMap)(this._arrayMap, function (row) {
-      if (row >= index) {
+      if (row >= physicalIndex) {
         row += amount;
       }
-
       return row;
     });
 
     (0, _number.rangeEach)(amount - 1, function (count) {
-      _this3._arrayMap.splice(index + count, 0, index + count);
+      _this3._arrayMap.splice(physicalIndex + count, 0, physicalIndex + count);
     });
+  },
+
+
+  /**
+   * Swap indexes in arrayMapper.
+   *
+   * @param {Number} physicalIndexFrom index to move.
+   * @param {Number} physicalIndexTo index to.
+   */
+  swapIndexes: function swapIndexes(physicalIndexFrom, physicalIndexTo) {
+    var _arrayMap;
+
+    (_arrayMap = this._arrayMap).splice.apply(_arrayMap, [physicalIndexTo, 0].concat(_toConsumableArray(this._arrayMap.splice(physicalIndexFrom, 1))));
   },
 
 
@@ -10657,7 +10675,7 @@ var _localHooks = __webpack_require__(31);
 
 var _localHooks2 = _interopRequireDefault(_localHooks);
 
-var _stateSaver = __webpack_require__(375);
+var _stateSaver = __webpack_require__(376);
 
 var _stateSaver2 = _interopRequireDefault(_stateSaver);
 
@@ -14116,7 +14134,7 @@ function Core(rootElement, userSettings) {
 
       if (priv.selRange.highlight.row + rowDelta > totalRows - 1) {
         if (force && priv.settings.minSpareRows > 0 && !(fixedRowsBottom && priv.selRange.highlight.row >= totalRows - fixedRowsBottom - 1)) {
-          instance.alter('insert_row', totalRows);
+          instance.alter('insert_row', totalRows, 1, 'auto');
           totalRows = instance.countRows();
         } else if (priv.settings.autoWrapCol) {
           delta.row = 1 - totalRows;
@@ -14129,7 +14147,7 @@ function Core(rootElement, userSettings) {
 
       if (priv.selRange.highlight.col + delta.col > totalCols - 1) {
         if (force && priv.settings.minSpareCols > 0) {
-          instance.alter('insert_col', totalCols);
+          instance.alter('insert_col', totalCols, 1, 'auto');
           totalCols = instance.countCols();
         } else if (priv.settings.autoWrapRow) {
           delta.row = priv.selRange.highlight.row + delta.row == totalRows - 1 ? 1 - totalRows : 1;
@@ -17424,7 +17442,7 @@ var _element = __webpack_require__(1);
 
 var _array = __webpack_require__(0);
 
-var _cursor = __webpack_require__(321);
+var _cursor = __webpack_require__(323);
 
 var _cursor2 = _interopRequireDefault(_cursor);
 
@@ -18297,51 +18315,51 @@ var _predefinedItems = __webpack_require__(43);
 
 var _conditionRegisterer = __webpack_require__(9);
 
-var _none = __webpack_require__(376);
+var _none = __webpack_require__(377);
 
 var _empty = __webpack_require__(214);
 
-var _notEmpty = __webpack_require__(377);
+var _notEmpty = __webpack_require__(378);
 
 var _equal = __webpack_require__(215);
 
-var _notEqual = __webpack_require__(378);
+var _notEqual = __webpack_require__(379);
 
-var _greaterThan = __webpack_require__(379);
+var _greaterThan = __webpack_require__(380);
 
-var _greaterThanOrEqual = __webpack_require__(380);
+var _greaterThanOrEqual = __webpack_require__(381);
 
-var _lessThan = __webpack_require__(381);
+var _lessThan = __webpack_require__(382);
 
-var _lessThanOrEqual = __webpack_require__(382);
+var _lessThanOrEqual = __webpack_require__(383);
 
 var _between = __webpack_require__(216);
 
-var _notBetween = __webpack_require__(383);
+var _notBetween = __webpack_require__(384);
 
-var _beginsWith = __webpack_require__(384);
+var _beginsWith = __webpack_require__(385);
 
-var _endsWith = __webpack_require__(385);
+var _endsWith = __webpack_require__(386);
 
 var _contains = __webpack_require__(219);
 
-var _notContains = __webpack_require__(386);
+var _notContains = __webpack_require__(387);
 
 var _before = __webpack_require__(218);
 
 var _after = __webpack_require__(217);
 
-var _tomorrow = __webpack_require__(387);
+var _tomorrow = __webpack_require__(388);
 
-var _today = __webpack_require__(388);
+var _today = __webpack_require__(389);
 
-var _yesterday = __webpack_require__(389);
+var _yesterday = __webpack_require__(390);
 
-var _byValue = __webpack_require__(390);
+var _byValue = __webpack_require__(391);
 
-var _true = __webpack_require__(391);
+var _true = __webpack_require__(392);
 
-var _false = __webpack_require__(392);
+var _false = __webpack_require__(393);
 
 var _conjunction = __webpack_require__(158);
 
@@ -31261,15 +31279,15 @@ var _handsontable = __webpack_require__(247);
 
 var _handsontable2 = _interopRequireDefault(_handsontable);
 
-var _index = __webpack_require__(357);
+var _index = __webpack_require__(358);
 
 var plugins = _interopRequireWildcard(_index);
 
-var _bottom = __webpack_require__(437);
+var _bottom = __webpack_require__(438);
 
 var _bottom2 = _interopRequireDefault(_bottom);
 
-var _bottomLeftCorner = __webpack_require__(438);
+var _bottomLeftCorner = __webpack_require__(439);
 
 var _bottomLeftCorner2 = _interopRequireDefault(_bottomLeftCorner);
 
@@ -31277,7 +31295,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_handsontable2.default.baseVersion = '0.35.1';
+_handsontable2.default.baseVersion = 'handsontable/handsontable#release/0.35.2';
 
 exports.default = _handsontable2.default;
 
@@ -31918,11 +31936,11 @@ Handsontable.DefaultSettings = _defaultSettings2.default;
 Handsontable.EventManager = _eventManager2.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = '25/01/2018 10:21:21';
+Handsontable.buildDate = '05/02/2018 12:24:36';
 Handsontable.packageName = 'handsontable-pro';
-Handsontable.version = '1.15.1';
+Handsontable.version = '1.15.2';
 
-var baseVersion = '0.35.1';
+var baseVersion = 'handsontable/handsontable#release/0.35.2';
 
 if (baseVersion) {
   Handsontable.baseVersion = baseVersion;
@@ -36025,56 +36043,64 @@ DataMap.prototype.getSchema = function () {
  * Creates row at the bottom of the data array.
  *
  * @param {Number} [index] Physical index of the row before which the new row will be inserted.
- * @param {Number} [amount] An amount of rows to add.
+ * @param {Number} [amount=1] An amount of rows to add.
  * @param {String} [source] Source of method call.
  * @fires Hooks#afterCreateRow
  * @returns {Number} Returns number of created rows.
  */
-DataMap.prototype.createRow = function (index, amount, source) {
-  var row,
-      colCount = this.instance.countCols(),
-      numberOfCreatedRows = 0,
-      currentIndex;
+DataMap.prototype.createRow = function (index) {
+  var _this2 = this;
 
-  if (!amount) {
-    amount = 1;
-  }
+  var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var source = arguments[2];
+
+  var numberOfCreatedRows = 0;
 
   if (typeof index !== 'number' || index >= this.instance.countSourceRows()) {
     index = this.instance.countSourceRows();
   }
-  this.instance.runHooks('beforeCreateRow', index, amount, source);
 
-  currentIndex = index;
+  var continueProcess = this.instance.runHooks('beforeCreateRow', index, amount, source);
+
+  if (continueProcess === false) {
+    return 0;
+  }
+
   var maxRows = this.instance.getSettings().maxRows;
+  var columnCount = this.instance.countCols();
 
-  while (numberOfCreatedRows < amount && this.instance.countSourceRows() < maxRows) {
-    if (this.instance.dataType === 'array') {
-      if (this.instance.getSettings().dataSchema) {
+  var _loop = function _loop() {
+    var row = null;
+
+    if (_this2.instance.dataType === 'array') {
+      if (_this2.instance.getSettings().dataSchema) {
         // Clone template array
-        row = (0, _object.deepClone)(this.getSchema());
+        row = (0, _object.deepClone)(_this2.getSchema());
       } else {
         row = [];
         /* eslint-disable no-loop-func */
-        (0, _number.rangeEach)(colCount - 1, function () {
+        (0, _number.rangeEach)(columnCount - 1, function () {
           return row.push(null);
         });
       }
-    } else if (this.instance.dataType === 'function') {
-      row = this.instance.getSettings().dataSchema(index);
+    } else if (_this2.instance.dataType === 'function') {
+      row = _this2.instance.getSettings().dataSchema(index);
     } else {
       row = {};
-      (0, _object.deepExtend)(row, this.getSchema());
+      (0, _object.deepExtend)(row, _this2.getSchema());
     }
 
-    if (index === this.instance.countSourceRows()) {
-      this.dataSource.push(row);
+    if (index === _this2.instance.countSourceRows()) {
+      _this2.dataSource.push(row);
     } else {
-      this.spliceData(index, 0, row);
+      _this2.spliceData(index, 0, row);
     }
 
     numberOfCreatedRows++;
-    currentIndex++;
+  };
+
+  while (numberOfCreatedRows < amount && this.instance.countSourceRows() < maxRows) {
+    _loop();
   }
 
   this.instance.runHooks('afterCreateRow', index, numberOfCreatedRows, source);
@@ -36552,7 +36578,7 @@ DataMap.prototype.clearLengthCache = function () {
  * @returns {Number}
  */
 DataMap.prototype.getLength = function () {
-  var _this2 = this;
+  var _this3 = this;
 
   var maxRows = void 0,
       maxRowsFromSettings = this.instance.getSettings().maxRows;
@@ -36576,7 +36602,7 @@ DataMap.prototype.getLength = function () {
     this.latestSourceRowsCount = length;
     if (this.cachedLength === null || reValidate) {
       (0, _number.rangeEach)(length - 1, function (row) {
-        row = _this2.instance.runHooks('modifyRow', row);
+        row = _this3.instance.runHooks('modifyRow', row);
 
         if (row === null) {
           --length;
@@ -36691,11 +36717,11 @@ DataMap.prototype.getCopyableText = function (start, end) {
  * @param {Number} delay Time of the delay in milliseconds.
  */
 DataMap.prototype.onSkipLengthCache = function (delay) {
-  var _this3 = this;
+  var _this4 = this;
 
   this.skipCache = true;
   setTimeout(function () {
-    _this3.skipCache = false;
+    _this4.skipCache = false;
   }, delay);
 };
 
@@ -38610,87 +38636,87 @@ function jQueryWrapper(Handsontable) {
 exports.__esModule = true;
 exports.Base = exports.UndoRedo = exports.TouchScroll = exports.Search = exports.PersistentState = exports.ObserveChanges = exports.MultipleSelectionHandles = exports.MergeCells = exports.ManualRowResize = exports.ManualRowMove = exports.ManualColumnResize = exports.ManualColumnMove = exports.ManualColumnFreeze = exports.DragToScroll = exports.CustomBorders = exports.CopyPaste = exports.ContextMenu = exports.Comments = exports.ColumnSorting = exports.AutoRowSize = exports.AutoFill = exports.AutoColumnSize = undefined;
 
-var _autoColumnSize = __webpack_require__(298);
-
-var _autoColumnSize2 = _interopRequireDefault(_autoColumnSize);
-
-var _autofill = __webpack_require__(299);
-
-var _autofill2 = _interopRequireDefault(_autofill);
-
-var _autoRowSize = __webpack_require__(301);
-
-var _autoRowSize2 = _interopRequireDefault(_autoRowSize);
-
-var _columnSorting = __webpack_require__(302);
-
-var _columnSorting2 = _interopRequireDefault(_columnSorting);
-
-var _comments = __webpack_require__(305);
-
-var _comments2 = _interopRequireDefault(_comments);
-
-var _contextMenu = __webpack_require__(309);
-
-var _contextMenu2 = _interopRequireDefault(_contextMenu);
-
-var _copyPaste = __webpack_require__(323);
-
-var _copyPaste2 = _interopRequireDefault(_copyPaste);
-
-var _customBorders = __webpack_require__(330);
-
-var _customBorders2 = _interopRequireDefault(_customBorders);
-
-var _dragToScroll = __webpack_require__(331);
-
-var _dragToScroll2 = _interopRequireDefault(_dragToScroll);
-
-var _manualColumnFreeze = __webpack_require__(332);
-
-var _manualColumnFreeze2 = _interopRequireDefault(_manualColumnFreeze);
-
-var _manualColumnMove = __webpack_require__(336);
-
-var _manualColumnMove2 = _interopRequireDefault(_manualColumnMove);
-
-var _manualColumnResize = __webpack_require__(341);
-
-var _manualColumnResize2 = _interopRequireDefault(_manualColumnResize);
-
-var _manualRowMove = __webpack_require__(342);
-
-var _manualRowMove2 = _interopRequireDefault(_manualRowMove);
-
-var _manualRowResize = __webpack_require__(347);
-
-var _manualRowResize2 = _interopRequireDefault(_manualRowResize);
-
-var _mergeCells = __webpack_require__(348);
-
-var _mergeCells2 = _interopRequireDefault(_mergeCells);
-
-var _multipleSelectionHandles = __webpack_require__(349);
-
-var _multipleSelectionHandles2 = _interopRequireDefault(_multipleSelectionHandles);
-
-var _observeChanges = __webpack_require__(350);
-
-var _observeChanges2 = _interopRequireDefault(_observeChanges);
-
-var _persistentState = __webpack_require__(353);
+var _persistentState = __webpack_require__(298);
 
 var _persistentState2 = _interopRequireDefault(_persistentState);
 
-var _search = __webpack_require__(354);
+var _autoColumnSize = __webpack_require__(300);
+
+var _autoColumnSize2 = _interopRequireDefault(_autoColumnSize);
+
+var _autofill = __webpack_require__(301);
+
+var _autofill2 = _interopRequireDefault(_autofill);
+
+var _autoRowSize = __webpack_require__(303);
+
+var _autoRowSize2 = _interopRequireDefault(_autoRowSize);
+
+var _columnSorting = __webpack_require__(304);
+
+var _columnSorting2 = _interopRequireDefault(_columnSorting);
+
+var _comments = __webpack_require__(307);
+
+var _comments2 = _interopRequireDefault(_comments);
+
+var _contextMenu = __webpack_require__(311);
+
+var _contextMenu2 = _interopRequireDefault(_contextMenu);
+
+var _copyPaste = __webpack_require__(325);
+
+var _copyPaste2 = _interopRequireDefault(_copyPaste);
+
+var _customBorders = __webpack_require__(332);
+
+var _customBorders2 = _interopRequireDefault(_customBorders);
+
+var _dragToScroll = __webpack_require__(333);
+
+var _dragToScroll2 = _interopRequireDefault(_dragToScroll);
+
+var _manualColumnFreeze = __webpack_require__(334);
+
+var _manualColumnFreeze2 = _interopRequireDefault(_manualColumnFreeze);
+
+var _manualColumnMove = __webpack_require__(338);
+
+var _manualColumnMove2 = _interopRequireDefault(_manualColumnMove);
+
+var _manualColumnResize = __webpack_require__(343);
+
+var _manualColumnResize2 = _interopRequireDefault(_manualColumnResize);
+
+var _manualRowMove = __webpack_require__(344);
+
+var _manualRowMove2 = _interopRequireDefault(_manualRowMove);
+
+var _manualRowResize = __webpack_require__(349);
+
+var _manualRowResize2 = _interopRequireDefault(_manualRowResize);
+
+var _mergeCells = __webpack_require__(350);
+
+var _mergeCells2 = _interopRequireDefault(_mergeCells);
+
+var _multipleSelectionHandles = __webpack_require__(351);
+
+var _multipleSelectionHandles2 = _interopRequireDefault(_multipleSelectionHandles);
+
+var _observeChanges = __webpack_require__(352);
+
+var _observeChanges2 = _interopRequireDefault(_observeChanges);
+
+var _search = __webpack_require__(355);
 
 var _search2 = _interopRequireDefault(_search);
 
-var _touchScroll = __webpack_require__(355);
+var _touchScroll = __webpack_require__(356);
 
 var _touchScroll2 = _interopRequireDefault(_touchScroll);
 
-var _undoRedo = __webpack_require__(356);
+var _undoRedo = __webpack_require__(357);
 
 var _undoRedo2 = _interopRequireDefault(_undoRedo);
 
@@ -38725,6 +38751,364 @@ exports.Base = _base2.default;
 
 /***/ }),
 /* 298 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _base = __webpack_require__(7);
+
+var _base2 = _interopRequireDefault(_base);
+
+var _plugins = __webpack_require__(6);
+
+var _storage = __webpack_require__(299);
+
+var _storage2 = _interopRequireDefault(_storage);
+
+var _pluginHooks = __webpack_require__(12);
+
+var _pluginHooks2 = _interopRequireDefault(_pluginHooks);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+_pluginHooks2.default.getSingleton().register('persistentStateSave');
+_pluginHooks2.default.getSingleton().register('persistentStateLoad');
+_pluginHooks2.default.getSingleton().register('persistentStateReset');
+
+/**
+ * Save the state of column sorting, column positions and column sizes in local storage
+ * to preserve table state between page reloads.
+ *
+ * In order to enable data storage mechanism, persistentState option must be set to true.
+ *
+ * When persistentState is enabled it exposes 3 hooks:
+ *
+ * persistentStateSave (key: String, value: Mixed) -
+ * Saves value under given key in browser local storage.
+ *
+ * persistentStateLoad (key: String, saveTo: Object) -
+ * Loads value, saved under given key, form browser local storage.
+ * The loaded value will be saved in saveTo.value.
+ *
+ * persistentStateReset (key: String) -
+ * Clears the value saved under key.
+ * If no key is given, all values associated with table will be cleared.
+ *
+ * @plugin persistentState
+ */
+
+var PersistentState = function (_BasePlugin) {
+  _inherits(PersistentState, _BasePlugin);
+
+  function PersistentState(hotInstance) {
+    _classCallCheck(this, PersistentState);
+
+    /**
+     * Instance of {@link Storage}.
+     *
+     * @type {Storage}
+     */
+    var _this = _possibleConstructorReturn(this, (PersistentState.__proto__ || Object.getPrototypeOf(PersistentState)).call(this, hotInstance));
+
+    _this.storage = void 0;
+    return _this;
+  }
+
+  /**
+   * Check if the plugin is enabled in the Handsontable settings.
+   *
+   * @returns {Boolean}
+   */
+
+
+  _createClass(PersistentState, [{
+    key: 'isEnabled',
+    value: function isEnabled() {
+      return !!this.hot.getSettings().persistentState;
+    }
+
+    /**
+     * Enable plugin for this Handsontable instance.
+     */
+
+  }, {
+    key: 'enablePlugin',
+    value: function enablePlugin() {
+      var _this2 = this;
+
+      if (this.enabled) {
+        return;
+      }
+
+      if (!this.storage) {
+        this.storage = new _storage2.default(this.hot.rootElement.id);
+      }
+
+      this.addHook('persistentStateSave', function (key, value) {
+        return _this2.saveValue(key, value);
+      });
+      this.addHook('persistentStateLoad', function (key, saveTo) {
+        return _this2.loadValue(key, saveTo);
+      });
+      this.addHook('persistentStateReset', function () {
+        return _this2.resetValue();
+      });
+
+      _get(PersistentState.prototype.__proto__ || Object.getPrototypeOf(PersistentState.prototype), 'enablePlugin', this).call(this);
+    }
+
+    /**
+     * Disable plugin for this Handsontable instance.
+     */
+
+  }, {
+    key: 'disablePlugin',
+    value: function disablePlugin() {
+      this.storage = void 0;
+
+      _get(PersistentState.prototype.__proto__ || Object.getPrototypeOf(PersistentState.prototype), 'disablePlugin', this).call(this);
+    }
+
+    /**
+     * Updates the plugin to use the latest options you have specified.
+     */
+
+  }, {
+    key: 'updatePlugin',
+    value: function updatePlugin() {
+      this.disablePlugin();
+      this.enablePlugin();
+
+      _get(PersistentState.prototype.__proto__ || Object.getPrototypeOf(PersistentState.prototype), 'updatePlugin', this).call(this);
+    }
+
+    /**
+     * Load value from localStorage.
+     *
+     * @param {String} key Key string.
+     * @param {Object} saveTo Saved value from browser local storage.
+     */
+
+  }, {
+    key: 'loadValue',
+    value: function loadValue(key, saveTo) {
+      saveTo.value = this.storage.loadValue(key);
+    }
+
+    /**
+     * Save data to localStorage.
+     *
+     * @param {String} key Key string.
+     * @param {Mixed} value Value to save.
+     */
+
+  }, {
+    key: 'saveValue',
+    value: function saveValue(key, value) {
+      this.storage.saveValue(key, value);
+    }
+
+    /**
+     * Reset given data or all data from localStorage.
+     *
+     * @param {String} key [optional] Key string.
+     */
+
+  }, {
+    key: 'resetValue',
+    value: function resetValue(key) {
+      if (typeof key === 'undefined') {
+        this.storage.resetAll();
+      } else {
+        this.storage.reset(key);
+      }
+    }
+
+    /**
+     * Destroy plugin instance.
+     */
+
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      _get(PersistentState.prototype.__proto__ || Object.getPrototypeOf(PersistentState.prototype), 'destroy', this).call(this);
+    }
+  }]);
+
+  return PersistentState;
+}(_base2.default);
+
+(0, _plugins.registerPlugin)('persistentState', PersistentState);
+
+exports.default = PersistentState;
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _array = __webpack_require__(0);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @class Storage
+ * @plugin PersistentState
+ */
+var Storage = function () {
+  function Storage(prefix) {
+    _classCallCheck(this, Storage);
+
+    /**
+     * Prefix for key (id element).
+     *
+     * @type {String}
+     */
+    this.prefix = prefix;
+
+    /**
+     * Saved keys.
+     *
+     * @type {Array}
+     */
+    this.savedKeys = [];
+    this.loadSavedKeys();
+  }
+
+  /**
+   * Save data to localStorage.
+   *
+   * @param {String} key Key string.
+   * @param {Mixed} value Value to save.
+   */
+
+
+  _createClass(Storage, [{
+    key: 'saveValue',
+    value: function saveValue(key, value) {
+      window.localStorage.setItem(this.prefix + '_' + key, JSON.stringify(value));
+
+      if (this.savedKeys.indexOf(key) === -1) {
+        this.savedKeys.push(key);
+        this.saveSavedKeys();
+      }
+    }
+
+    /**
+     * Load data from localStorage.
+     *
+     * @param {String} key Key string.
+     * @param {Object} defaultValue Object containing the loaded data.
+     *
+     * @returns {}
+     */
+
+  }, {
+    key: 'loadValue',
+    value: function loadValue(key, defaultValue) {
+      key = typeof key === 'undefined' ? defaultValue : key;
+
+      var value = window.localStorage.getItem(this.prefix + '_' + key);
+
+      return value === null ? void 0 : JSON.parse(value);
+    }
+
+    /**
+     * Reset given data from localStorage.
+     *
+     * @param {String} key Key string.
+     */
+
+  }, {
+    key: 'reset',
+    value: function reset(key) {
+      window.localStorage.removeItem(this.prefix + '_' + key);
+    }
+
+    /**
+     * Reset all data from localStorage.
+     *
+     */
+
+  }, {
+    key: 'resetAll',
+    value: function resetAll() {
+      var _this = this;
+
+      (0, _array.arrayEach)(this.savedKeys, function (value, index) {
+        window.localStorage.removeItem(_this.prefix + '_' + _this.savedKeys[index]);
+      });
+
+      this.clearSavedKeys();
+    }
+
+    /**
+     * Load and save all keys from localStorage.
+     *
+     * @private
+     */
+
+  }, {
+    key: 'loadSavedKeys',
+    value: function loadSavedKeys() {
+      var keysJSON = window.localStorage.getItem(this.prefix + '__persistentStateKeys');
+      var keys = typeof keysJSON === 'string' ? JSON.parse(keysJSON) : void 0;
+
+      this.savedKeys = keys ? keys : [];
+    }
+  }, {
+    key: 'saveSavedKeys',
+
+
+    /**
+     * Save saved key in localStorage.
+     *
+     * @private
+     */
+    value: function saveSavedKeys() {
+      window.localStorage.setItem(this.prefix + '__persistentStateKeys', JSON.stringify(this.savedKeys));
+    }
+  }, {
+    key: 'clearSavedKeys',
+
+
+    /**
+     * Clear saved key from localStorage.
+     *
+     * @private
+     */
+    value: function clearSavedKeys() {
+      this.savedKeys.length = 0;
+      this.saveSavedKeys();
+    }
+  }]);
+
+  return Storage;
+}();
+
+exports.default = Storage;
+
+/***/ }),
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39401,7 +39785,7 @@ var AutoColumnSize = function (_BasePlugin) {
 exports.default = AutoColumnSize;
 
 /***/ }),
-/* 299 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39431,7 +39815,7 @@ var _plugins = __webpack_require__(6);
 
 var _src = __webpack_require__(15);
 
-var _utils = __webpack_require__(300);
+var _utils = __webpack_require__(302);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40078,7 +40462,7 @@ var Autofill = function (_BasePlugin) {
 exports.default = Autofill;
 
 /***/ }),
-/* 300 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40230,7 +40614,7 @@ function getMappedFillHandleSetting(fillHandle) {
 }
 
 /***/ }),
-/* 301 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40879,7 +41263,7 @@ var AutoRowSize = function (_BasePlugin) {
 exports.default = AutoRowSize;
 
 /***/ }),
-/* 302 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40911,7 +41295,7 @@ var _base2 = _interopRequireDefault(_base);
 
 var _plugins = __webpack_require__(6);
 
-var _mergeSort = __webpack_require__(303);
+var _mergeSort = __webpack_require__(305);
 
 var _mergeSort2 = _interopRequireDefault(_mergeSort);
 
@@ -41681,7 +42065,7 @@ var ColumnSorting = function (_BasePlugin) {
 exports.default = ColumnSorting;
 
 /***/ }),
-/* 303 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41691,7 +42075,7 @@ exports.__esModule = true;
 exports.default = mergeSort;
 exports.merge = merge;
 
-var _linkedList = __webpack_require__(304);
+var _linkedList = __webpack_require__(306);
 
 var _linkedList2 = _interopRequireDefault(_linkedList);
 
@@ -41806,7 +42190,7 @@ function merge(array, compareFunction, startIndex, middleIndex, endIndex) {
 };
 
 /***/ }),
-/* 304 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42117,7 +42501,7 @@ exports.NodeStructure = NodeStructure;
 exports.default = LinkedList;
 
 /***/ }),
-/* 305 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42145,13 +42529,13 @@ var _base = __webpack_require__(7);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _commentEditor = __webpack_require__(306);
+var _commentEditor = __webpack_require__(308);
 
 var _commentEditor2 = _interopRequireDefault(_commentEditor);
 
 var _utils = __webpack_require__(22);
 
-var _displaySwitch = __webpack_require__(307);
+var _displaySwitch = __webpack_require__(309);
 
 var _displaySwitch2 = _interopRequireDefault(_displaySwitch);
 
@@ -42159,7 +42543,7 @@ var _constants = __webpack_require__(3);
 
 var C = _interopRequireWildcard(_constants);
 
-__webpack_require__(308);
+__webpack_require__(310);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -43093,7 +43477,7 @@ var Comments = function (_BasePlugin) {
 exports.default = Comments;
 
 /***/ }),
-/* 306 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43351,7 +43735,7 @@ var CommentEditor = function () {
 exports.default = CommentEditor;
 
 /***/ }),
-/* 307 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43494,13 +43878,13 @@ var DisplaySwitch = function () {
 exports.default = DisplaySwitch;
 
 /***/ }),
-/* 308 */
+/* 310 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 309 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43546,7 +43930,7 @@ var _element = __webpack_require__(1);
 
 var _predefinedItems = __webpack_require__(43);
 
-__webpack_require__(322);
+__webpack_require__(324);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43930,7 +44314,7 @@ ContextMenu.SEPARATOR = {
 exports.default = ContextMenu;
 
 /***/ }),
-/* 310 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44250,7 +44634,7 @@ function alignmentItem() {
 }
 
 /***/ }),
-/* 311 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44298,7 +44682,7 @@ function clearColumnItem() {
 }
 
 /***/ }),
-/* 312 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44349,7 +44733,7 @@ function columnLeftItem() {
 }
 
 /***/ }),
-/* 313 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44400,7 +44784,7 @@ function columnRightItem() {
 }
 
 /***/ }),
-/* 314 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44457,7 +44841,7 @@ function readOnlyItem() {
 }
 
 /***/ }),
-/* 315 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44491,7 +44875,7 @@ function redoItem() {
 }
 
 /***/ }),
-/* 316 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44551,7 +44935,7 @@ function removeColumnItem() {
 }
 
 /***/ }),
-/* 317 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44611,7 +44995,7 @@ function removeRowItem() {
 }
 
 /***/ }),
-/* 318 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44652,7 +45036,7 @@ function rowAboveItem() {
 }
 
 /***/ }),
-/* 319 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44693,7 +45077,7 @@ function rowBelowItem() {
 }
 
 /***/ }),
-/* 320 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44727,7 +45111,7 @@ function undoItem() {
 }
 
 /***/ }),
-/* 321 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44877,13 +45261,13 @@ var Cursor = function () {
 exports.default = Cursor;
 
 /***/ }),
-/* 322 */
+/* 324 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 323 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44919,15 +45303,15 @@ var _number = __webpack_require__(4);
 
 var _plugins = __webpack_require__(6);
 
-var _textarea = __webpack_require__(324);
+var _textarea = __webpack_require__(326);
 
 var _textarea2 = _interopRequireDefault(_textarea);
 
-var _copy = __webpack_require__(325);
+var _copy = __webpack_require__(327);
 
 var _copy2 = _interopRequireDefault(_copy);
 
-var _cut = __webpack_require__(326);
+var _cut = __webpack_require__(328);
 
 var _cut2 = _interopRequireDefault(_cut);
 
@@ -44935,11 +45319,11 @@ var _eventManager = __webpack_require__(8);
 
 var _eventManager2 = _interopRequireDefault(_eventManager);
 
-var _pasteEvent = __webpack_require__(327);
+var _pasteEvent = __webpack_require__(329);
 
 var _pasteEvent2 = _interopRequireDefault(_pasteEvent);
 
-__webpack_require__(329);
+__webpack_require__(331);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45534,7 +45918,7 @@ var CopyPaste = function (_BasePlugin) {
 exports.default = CopyPaste;
 
 /***/ }),
-/* 324 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45719,7 +46103,7 @@ var globalSingleton = new Textarea();
 exports.default = Textarea;
 
 /***/ }),
-/* 325 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45752,7 +46136,7 @@ function copyItem(copyPastePlugin) {
 }
 
 /***/ }),
-/* 326 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45785,7 +46169,7 @@ function cutItem(copyPastePlugin) {
 }
 
 /***/ }),
-/* 327 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45793,7 +46177,7 @@ function cutItem(copyPastePlugin) {
 
 exports.__esModule = true;
 
-var _clipboardData = __webpack_require__(328);
+var _clipboardData = __webpack_require__(330);
 
 var _clipboardData2 = _interopRequireDefault(_clipboardData);
 
@@ -45810,7 +46194,7 @@ var PasteEvent = function PasteEvent() {
 exports.default = PasteEvent;
 
 /***/ }),
-/* 328 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45847,13 +46231,13 @@ var ClipboardData = function () {
 exports.default = ClipboardData;
 
 /***/ }),
-/* 329 */
+/* 331 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 330 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46416,7 +46800,7 @@ _pluginHooks2.default.getSingleton().add('afterInit', function () {
 exports.default = CustomBorders;
 
 /***/ }),
-/* 331 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46720,7 +47104,7 @@ var DragToScroll = function (_BasePlugin) {
 exports.default = DragToScroll;
 
 /***/ }),
-/* 332 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46740,15 +47124,15 @@ var _plugins = __webpack_require__(6);
 
 var _array = __webpack_require__(0);
 
-var _freezeColumn = __webpack_require__(333);
+var _freezeColumn = __webpack_require__(335);
 
 var _freezeColumn2 = _interopRequireDefault(_freezeColumn);
 
-var _unfreezeColumn = __webpack_require__(334);
+var _unfreezeColumn = __webpack_require__(336);
 
 var _unfreezeColumn2 = _interopRequireDefault(_unfreezeColumn);
 
-__webpack_require__(335);
+__webpack_require__(337);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46913,7 +47297,7 @@ var ManualColumnFreeze = function (_BasePlugin) {
       priv.moveByFreeze = true;
       settings.fixedColumnsLeft--;
 
-      this.getMovePlugin().moveColumn(column, returnCol + 1);
+      this.getMovePlugin().moveColumn(column, returnCol);
     }
 
     /**
@@ -46949,10 +47333,10 @@ var ManualColumnFreeze = function (_BasePlugin) {
       var j = movePlugin.columnsMapper.getValueByIndex(i);
       var initialCol = void 0;
 
-      if (this.frozenColumnsBasePositions[column] == null) {
+      if (this.frozenColumnsBasePositions[column] === null || this.frozenColumnsBasePositions[column] === void 0) {
         initialCol = movePlugin.columnsMapper.getValueByIndex(column);
 
-        while (j < initialCol) {
+        while (j !== null && j <= initialCol) {
           i++;
           j = movePlugin.columnsMapper.getValueByIndex(i);
         }
@@ -46960,7 +47344,7 @@ var ManualColumnFreeze = function (_BasePlugin) {
         initialCol = this.frozenColumnsBasePositions[column];
         this.frozenColumnsBasePositions[column] = void 0;
 
-        while (j <= initialCol) {
+        while (j !== null && j <= initialCol) {
           i++;
           j = movePlugin.columnsMapper.getValueByIndex(i);
         }
@@ -47051,7 +47435,7 @@ var ManualColumnFreeze = function (_BasePlugin) {
 exports.default = ManualColumnFreeze;
 
 /***/ }),
-/* 333 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47096,7 +47480,7 @@ function freezeColumnItem(manualColumnFreezePlugin) {
 }
 
 /***/ }),
-/* 334 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47141,13 +47525,13 @@ function unfreezeColumnItem(manualColumnFreezePlugin) {
 }
 
 /***/ }),
-/* 335 */
+/* 337 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 336 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47179,21 +47563,21 @@ var _eventManager2 = _interopRequireDefault(_eventManager);
 
 var _plugins = __webpack_require__(6);
 
-var _columnsMapper = __webpack_require__(337);
+var _columnsMapper = __webpack_require__(339);
 
 var _columnsMapper2 = _interopRequireDefault(_columnsMapper);
 
-var _backlight = __webpack_require__(338);
+var _backlight = __webpack_require__(340);
 
 var _backlight2 = _interopRequireDefault(_backlight);
 
-var _guideline = __webpack_require__(339);
+var _guideline = __webpack_require__(341);
 
 var _guideline2 = _interopRequireDefault(_guideline);
 
 var _src = __webpack_require__(15);
 
-__webpack_require__(340);
+__webpack_require__(342);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47431,12 +47815,9 @@ var ManualColumnMove = function (_BasePlugin) {
           var actualPosition = _this3.columnsMapper.getIndexByValue(column);
 
           if (actualPosition !== target) {
-            _this3.columnsMapper.moveColumn(actualPosition, target + index);
+            _this3.columnsMapper.swapIndexes(actualPosition, target + index);
           }
         });
-
-        // after moving we have to clear columnsMapper from null entries
-        this.columnsMapper.clearNull();
       }
 
       this.hot.runHooks('afterColumnMove', columns, target);
@@ -47874,7 +48255,6 @@ var ManualColumnMove = function (_BasePlugin) {
     value: function onMouseUp() {
       var priv = privatePool.get(this);
 
-      priv.coordsColumn = void 0;
       priv.pressed = false;
       priv.backlightWidth = 0;
 
@@ -47887,7 +48267,7 @@ var ManualColumnMove = function (_BasePlugin) {
         return;
       }
 
-      this.moveColumns(priv.columnsToMove, priv.target.col);
+      this.moveColumns(priv.columnsToMove, priv.coordsColumn);
       this.persistentStateSave();
       this.hot.render();
       this.hot.view.wt.wtOverlays.adjustElementsSize(true);
@@ -48053,7 +48433,7 @@ var ManualColumnMove = function (_BasePlugin) {
 exports.default = ManualColumnMove;
 
 /***/ }),
-/* 337 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48123,33 +48503,6 @@ var ColumnsMapper = function () {
     value: function destroy() {
       this._arrayMap = null;
     }
-
-    /**
-     * Moving elements in columnsMapper.
-     *
-     * @param {Number} from Column index to move.
-     * @param {Number} to Target index.
-     */
-
-  }, {
-    key: 'moveColumn',
-    value: function moveColumn(from, to) {
-      var indexToMove = this._arrayMap[from];
-      this._arrayMap[from] = null;
-      this._arrayMap.splice(to, 0, indexToMove);
-    }
-
-    /**
-     * Clearing arrayMap from `null` entries.
-     */
-
-  }, {
-    key: 'clearNull',
-    value: function clearNull() {
-      this._arrayMap = (0, _array.arrayFilter)(this._arrayMap, function (i) {
-        return i !== null;
-      });
-    }
   }]);
 
   return ColumnsMapper;
@@ -48160,7 +48513,7 @@ var ColumnsMapper = function () {
 exports.default = ColumnsMapper;
 
 /***/ }),
-/* 338 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48221,7 +48574,7 @@ var BacklightUI = function (_BaseUI) {
 exports.default = BacklightUI;
 
 /***/ }),
-/* 339 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48282,13 +48635,13 @@ var GuidelineUI = function (_BaseUI) {
 exports.default = GuidelineUI;
 
 /***/ }),
-/* 340 */
+/* 342 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 341 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48950,7 +49303,7 @@ var ManualColumnResize = function (_BasePlugin) {
 exports.default = ManualColumnResize;
 
 /***/ }),
-/* 342 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48982,21 +49335,21 @@ var _eventManager2 = _interopRequireDefault(_eventManager);
 
 var _plugins = __webpack_require__(6);
 
-var _rowsMapper = __webpack_require__(343);
+var _rowsMapper = __webpack_require__(345);
 
 var _rowsMapper2 = _interopRequireDefault(_rowsMapper);
 
-var _backlight = __webpack_require__(344);
+var _backlight = __webpack_require__(346);
 
 var _backlight2 = _interopRequireDefault(_backlight);
 
-var _guideline = __webpack_require__(345);
+var _guideline = __webpack_require__(347);
 
 var _guideline2 = _interopRequireDefault(_guideline);
 
 var _src = __webpack_require__(15);
 
-__webpack_require__(346);
+__webpack_require__(348);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49235,12 +49588,9 @@ var ManualRowMove = function (_BasePlugin) {
           var actualPosition = _this3.rowsMapper.getIndexByValue(row);
 
           if (actualPosition !== target) {
-            _this3.rowsMapper.moveRow(actualPosition, target + index);
+            _this3.rowsMapper.swapIndexes(actualPosition, target + index);
           }
         });
-
-        // after moving we have to clear rowsMapper from null entries
-        this.rowsMapper.clearNull();
       }
 
       this.hot.runHooks('afterRowMove', rows, target);
@@ -49696,7 +50046,6 @@ var ManualRowMove = function (_BasePlugin) {
     key: 'onMouseUp',
     value: function onMouseUp() {
       var priv = privatePool.get(this);
-      var target = priv.target.row;
       var rowsLen = priv.rowsToMove.length;
 
       priv.pressed = false;
@@ -49708,11 +50057,11 @@ var ManualRowMove = function (_BasePlugin) {
         (0, _element.addClass)(this.hot.rootElement, CSS_AFTER_SELECTION);
       }
 
-      if (rowsLen < 1 || target === void 0 || priv.rowsToMove.indexOf(target) > -1 || priv.rowsToMove[rowsLen - 1] === target - 1) {
+      if (rowsLen < 1 || priv.target.row === void 0 || priv.rowsToMove.indexOf(priv.target.row) > -1 || priv.rowsToMove[rowsLen - 1] === priv.target.row - 1) {
         return;
       }
 
-      this.moveRows(priv.rowsToMove, target);
+      this.moveRows(priv.rowsToMove, priv.target.coords.row);
 
       this.persistentStateSave();
       this.hot.render();
@@ -49877,7 +50226,7 @@ var ManualRowMove = function (_BasePlugin) {
 exports.default = ManualRowMove;
 
 /***/ }),
-/* 343 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49947,33 +50296,6 @@ var RowsMapper = function () {
     value: function destroy() {
       this._arrayMap = null;
     }
-
-    /**
-     * Moving elements in rowsMapper.
-     *
-     * @param {Number} from Row index to move.
-     * @param {Number} to Target index.
-     */
-
-  }, {
-    key: 'moveRow',
-    value: function moveRow(from, to) {
-      var indexToMove = this._arrayMap[from];
-      this._arrayMap[from] = null;
-      this._arrayMap.splice(to, 0, indexToMove);
-    }
-
-    /**
-     * Clearing arrayMap from `null` entries.
-     */
-
-  }, {
-    key: 'clearNull',
-    value: function clearNull() {
-      this._arrayMap = (0, _array.arrayFilter)(this._arrayMap, function (i) {
-        return i !== null;
-      });
-    }
   }]);
 
   return RowsMapper;
@@ -49984,7 +50306,7 @@ var RowsMapper = function () {
 exports.default = RowsMapper;
 
 /***/ }),
-/* 344 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50045,7 +50367,7 @@ var BacklightUI = function (_BaseUI) {
 exports.default = BacklightUI;
 
 /***/ }),
-/* 345 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50106,13 +50428,13 @@ var GuidelineUI = function (_BaseUI) {
 exports.default = GuidelineUI;
 
 /***/ }),
-/* 346 */
+/* 348 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 347 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50697,7 +51019,7 @@ var ManualRowResize = function (_BasePlugin) {
 exports.default = ManualRowResize;
 
 /***/ }),
-/* 348 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51357,7 +51679,7 @@ hook.add('afterRemoveRow', onAfterRemoveRow);
 exports.default = MergeCells;
 
 /***/ }),
-/* 349 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51777,7 +52099,7 @@ var MultipleSelectionHandles = function (_BasePlugin) {
 exports.default = MultipleSelectionHandles;
 
 /***/ }),
-/* 350 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51797,7 +52119,7 @@ var _jsonPatchDuplex = __webpack_require__(213);
 
 var _jsonPatchDuplex2 = _interopRequireDefault(_jsonPatchDuplex);
 
-var _dataObserver = __webpack_require__(351);
+var _dataObserver = __webpack_require__(353);
 
 var _dataObserver2 = _interopRequireDefault(_dataObserver);
 
@@ -52066,7 +52388,7 @@ exports.default = ObserveChanges;
 (0, _plugins.registerPlugin)('observeChanges', ObserveChanges);
 
 /***/ }),
-/* 351 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52086,7 +52408,7 @@ var _localHooks2 = _interopRequireDefault(_localHooks);
 
 var _object = __webpack_require__(2);
 
-var _utils = __webpack_require__(352);
+var _utils = __webpack_require__(354);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52210,7 +52532,7 @@ var DataObserver = function () {
 exports.default = DataObserver;
 
 /***/ }),
-/* 352 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52302,166 +52624,7 @@ function parsePath(path) {
 }
 
 /***/ }),
-/* 353 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _pluginHooks = __webpack_require__(12);
-
-var _pluginHooks2 = _interopRequireDefault(_pluginHooks);
-
-var _plugins = __webpack_require__(6);
-
-var _object = __webpack_require__(2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Storage(prefix) {
-  var savedKeys;
-
-  var saveSavedKeys = function saveSavedKeys() {
-    window.localStorage[prefix + '__persistentStateKeys'] = JSON.stringify(savedKeys);
-  };
-
-  var loadSavedKeys = function loadSavedKeys() {
-    var keysJSON = window.localStorage[prefix + '__persistentStateKeys'];
-    var keys = typeof keysJSON == 'string' ? JSON.parse(keysJSON) : void 0;
-    savedKeys = keys ? keys : [];
-  };
-
-  var clearSavedKeys = function clearSavedKeys() {
-    savedKeys = [];
-    saveSavedKeys();
-  };
-
-  loadSavedKeys();
-
-  this.saveValue = function (key, value) {
-    window.localStorage[prefix + '_' + key] = JSON.stringify(value);
-    if (savedKeys.indexOf(key) == -1) {
-      savedKeys.push(key);
-      saveSavedKeys();
-    }
-  };
-
-  this.loadValue = function (key, defaultValue) {
-
-    key = typeof key === 'undefined' ? defaultValue : key;
-
-    var value = window.localStorage[prefix + '_' + key];
-
-    return typeof value == 'undefined' ? void 0 : JSON.parse(value);
-  };
-
-  this.reset = function (key) {
-    window.localStorage.removeItem(prefix + '_' + key);
-  };
-
-  this.resetAll = function () {
-    for (var index = 0; index < savedKeys.length; index++) {
-      window.localStorage.removeItem(prefix + '_' + savedKeys[index]);
-    }
-
-    clearSavedKeys();
-  };
-}
-
-/**
- * @private
- * @class PersistentState
- * @plugin PersistentState
- */
-function HandsontablePersistentState() {
-  var plugin = this;
-
-  this.init = function () {
-    var instance = this,
-        pluginSettings = instance.getSettings().persistentState;
-
-    plugin.enabled = !!pluginSettings;
-
-    if (!plugin.enabled) {
-      removeHooks.call(instance);
-      return;
-    }
-
-    if (!instance.storage) {
-      instance.storage = new Storage(instance.rootElement.id);
-    }
-
-    instance.resetState = plugin.resetValue;
-
-    addHooks.call(instance);
-  };
-
-  this.saveValue = function (key, value) {
-    var instance = this;
-
-    instance.storage.saveValue(key, value);
-  };
-
-  this.loadValue = function (key, saveTo) {
-    var instance = this;
-
-    saveTo.value = instance.storage.loadValue(key);
-  };
-
-  this.resetValue = function (key) {
-    var instance = this;
-
-    if (typeof key === 'undefined') {
-      instance.storage.resetAll();
-    } else {
-      instance.storage.reset(key);
-    }
-  };
-
-  var hooks = {
-    persistentStateSave: plugin.saveValue,
-    persistentStateLoad: plugin.loadValue,
-    persistentStateReset: plugin.resetValue
-  };
-
-  for (var hookName in hooks) {
-    if ((0, _object.hasOwnProperty)(hooks, hookName)) {
-      _pluginHooks2.default.getSingleton().register(hookName);
-    }
-  }
-
-  function addHooks() {
-    var instance = this;
-
-    for (var hookName in hooks) {
-      if ((0, _object.hasOwnProperty)(hooks, hookName)) {
-        instance.addHook(hookName, hooks[hookName]);
-      }
-    }
-  }
-
-  function removeHooks() {
-    var instance = this;
-
-    for (var hookName in hooks) {
-      if ((0, _object.hasOwnProperty)(hooks, hookName)) {
-        instance.removeHook(hookName, hooks[hookName]);
-      }
-    }
-  }
-}
-
-var htPersistentState = new HandsontablePersistentState();
-
-_pluginHooks2.default.getSingleton().add('beforeInit', htPersistentState.init);
-_pluginHooks2.default.getSingleton().add('afterUpdateSettings', htPersistentState.init);
-
-exports.default = HandsontablePersistentState;
-
-/***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52607,7 +52770,7 @@ _pluginHooks2.default.getSingleton().add('afterUpdateSettings', init);
 exports.default = Search;
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52869,7 +53032,7 @@ var TouchScroll = function (_BasePlugin) {
 exports.default = TouchScroll;
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53377,15 +53540,8 @@ UndoRedo.RowMoveAction.prototype.undo = function (instance, undoneCallback) {
   var manualRowMove = instance.getPlugin('manualRowMove');
 
   instance.addHookOnce('afterRender', undoneCallback);
-  var mod = this.rows[0] < this.target ? -1 * this.rows.length : 0;
-  var newTarget = this.rows[0] > this.target ? this.rows[0] + this.rows.length : this.rows[0];
-  var newRows = [];
-  var rowsLen = this.rows.length + mod;
 
-  for (var i = mod; i < rowsLen; i++) {
-    newRows.push(this.target + i);
-  }
-  manualRowMove.moveRows(newRows.slice(), newTarget);
+  manualRowMove.moveRows([this.target], this.rows[0]);
   instance.render();
 
   instance.selection.setRangeStartOnly(new _src.CellCoords(this.rows[0], 0));
@@ -53525,7 +53681,7 @@ hook.register('afterRedo');
 exports.default = UndoRedo;
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53534,59 +53690,59 @@ exports.default = UndoRedo;
 exports.__esModule = true;
 exports.TrimRows = exports.NestedRows = exports.NestedHeaders = exports.HiddenRows = exports.HiddenColumns = exports.HeaderTooltips = exports.GanttChart = exports.Formulas = exports.Filters = exports.ExportFile = exports.DropdownMenu = exports.ColumnSummary = exports.CollapsibleColumns = exports.BindRowsWithHeaders = undefined;
 
-var _bindRowsWithHeaders = __webpack_require__(358);
+var _bindRowsWithHeaders = __webpack_require__(359);
 
 var _bindRowsWithHeaders2 = _interopRequireDefault(_bindRowsWithHeaders);
 
-var _collapsibleColumns = __webpack_require__(363);
+var _collapsibleColumns = __webpack_require__(364);
 
 var _collapsibleColumns2 = _interopRequireDefault(_collapsibleColumns);
 
-var _columnSummary = __webpack_require__(364);
+var _columnSummary = __webpack_require__(365);
 
 var _columnSummary2 = _interopRequireDefault(_columnSummary);
 
-var _dropdownMenu = __webpack_require__(366);
+var _dropdownMenu = __webpack_require__(367);
 
 var _dropdownMenu2 = _interopRequireDefault(_dropdownMenu);
 
-var _exportFile = __webpack_require__(368);
+var _exportFile = __webpack_require__(369);
 
 var _exportFile2 = _interopRequireDefault(_exportFile);
 
-var _filters = __webpack_require__(373);
+var _filters = __webpack_require__(374);
 
 var _filters2 = _interopRequireDefault(_filters);
 
-var _formulas = __webpack_require__(402);
+var _formulas = __webpack_require__(403);
 
 var _formulas2 = _interopRequireDefault(_formulas);
 
-var _ganttChart = __webpack_require__(415);
+var _ganttChart = __webpack_require__(416);
 
 var _ganttChart2 = _interopRequireDefault(_ganttChart);
 
-var _headerTooltips = __webpack_require__(418);
+var _headerTooltips = __webpack_require__(419);
 
 var _headerTooltips2 = _interopRequireDefault(_headerTooltips);
 
-var _nestedHeaders = __webpack_require__(419);
+var _nestedHeaders = __webpack_require__(420);
 
 var _nestedHeaders2 = _interopRequireDefault(_nestedHeaders);
 
-var _nestedRows = __webpack_require__(422);
+var _nestedRows = __webpack_require__(423);
 
 var _nestedRows2 = _interopRequireDefault(_nestedRows);
 
-var _hiddenColumns = __webpack_require__(427);
+var _hiddenColumns = __webpack_require__(428);
 
 var _hiddenColumns2 = _interopRequireDefault(_hiddenColumns);
 
-var _hiddenRows = __webpack_require__(431);
+var _hiddenRows = __webpack_require__(432);
 
 var _hiddenRows2 = _interopRequireDefault(_hiddenRows);
 
-var _trimRows = __webpack_require__(435);
+var _trimRows = __webpack_require__(436);
 
 var _trimRows2 = _interopRequireDefault(_trimRows);
 
@@ -53609,7 +53765,7 @@ exports.TrimRows = _trimRows2.default;
 // HiddenColumns must be initialized after NestedHeaders. Bug releated with wrong listeners order attached to 'modifyColWidth' hook.
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53631,7 +53787,7 @@ var _number = __webpack_require__(4);
 
 var _plugins = __webpack_require__(6);
 
-var _bindStrategy = __webpack_require__(359);
+var _bindStrategy = __webpack_require__(360);
 
 var _bindStrategy2 = _interopRequireDefault(_bindStrategy);
 
@@ -53860,7 +54016,7 @@ var BindRowsWithHeaders = function (_BasePlugin) {
 exports.default = BindRowsWithHeaders;
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53878,7 +54034,7 @@ var _number = __webpack_require__(4);
 
 var _string = __webpack_require__(29);
 
-var _bindStrategies = __webpack_require__(360);
+var _bindStrategies = __webpack_require__(361);
 
 var strategies = _interopRequireWildcard(_bindStrategies);
 
@@ -54026,7 +54182,7 @@ var BindStrategy = function () {
 exports.default = BindStrategy;
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54035,11 +54191,11 @@ exports.default = BindStrategy;
 exports.__esModule = true;
 exports.Strict = exports.Loose = undefined;
 
-var _loose = __webpack_require__(361);
+var _loose = __webpack_require__(362);
 
 var _loose2 = _interopRequireDefault(_loose);
 
-var _strict = __webpack_require__(362);
+var _strict = __webpack_require__(363);
 
 var _strict2 = _interopRequireDefault(_strict);
 
@@ -54049,7 +54205,7 @@ exports.Loose = _loose2.default;
 exports.Strict = _strict2.default;
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54135,7 +54291,7 @@ var LooseBindStrategy = function () {
 exports.default = LooseBindStrategy;
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54221,7 +54377,7 @@ var StrictBindStrategy = function () {
 exports.default = StrictBindStrategy;
 
 /***/ }),
-/* 363 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54853,7 +55009,7 @@ var CollapsibleColumns = function (_BasePlugin) {
 exports.default = CollapsibleColumns;
 
 /***/ }),
-/* 364 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54875,7 +55031,7 @@ var _array = __webpack_require__(0);
 
 var _plugins = __webpack_require__(6);
 
-var _endpoints5 = __webpack_require__(365);
+var _endpoints5 = __webpack_require__(366);
 
 var _endpoints6 = _interopRequireDefault(_endpoints5);
 
@@ -55355,7 +55511,7 @@ var ColumnSummary = function (_BasePlugin) {
 exports.default = ColumnSummary;
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56029,7 +56185,7 @@ var Endpoints = function () {
 exports.default = Endpoints;
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56077,7 +56233,7 @@ var _event = __webpack_require__(10);
 
 var _predefinedItems = __webpack_require__(43);
 
-__webpack_require__(367);
+__webpack_require__(368);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56493,13 +56649,13 @@ DropdownMenu.SEPARATOR = {
 exports.default = DropdownMenu;
 
 /***/ }),
-/* 367 */
+/* 368 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56517,11 +56673,11 @@ var _object = __webpack_require__(2);
 
 var _plugins = __webpack_require__(6);
 
-var _dataProvider = __webpack_require__(369);
+var _dataProvider = __webpack_require__(370);
 
 var _dataProvider2 = _interopRequireDefault(_dataProvider);
 
-var _typeFactory = __webpack_require__(370);
+var _typeFactory = __webpack_require__(371);
 
 var _typeFactory2 = _interopRequireDefault(_typeFactory);
 
@@ -56708,7 +56864,7 @@ var ExportFile = function (_BasePlugin) {
 exports.default = ExportFile;
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56933,7 +57089,7 @@ var DataProvider = function () {
 exports.default = DataProvider;
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56943,7 +57099,7 @@ exports.__esModule = true;
 exports.EXPORT_TYPES = exports.TYPE_PDF = exports.TYPE_EXCEL = exports.TYPE_CSV = undefined;
 exports.default = typeFactory;
 
-var _csv = __webpack_require__(371);
+var _csv = __webpack_require__(372);
 
 var _csv2 = _interopRequireDefault(_csv);
 
@@ -56966,7 +57122,7 @@ function typeFactory(type, dataProvider, options) {
 }
 
 /***/ }),
-/* 371 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56980,7 +57136,7 @@ var _array = __webpack_require__(0);
 
 var _mixed = __webpack_require__(16);
 
-var _base = __webpack_require__(372);
+var _base = __webpack_require__(373);
 
 var _base2 = _interopRequireDefault(_base);
 
@@ -57106,7 +57262,7 @@ var Csv = function (_BaseType) {
 exports.default = Csv;
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57205,7 +57361,7 @@ var BaseType = function () {
 exports.default = BaseType;
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57245,19 +57401,19 @@ var _constants = __webpack_require__(3);
 
 var constants = _interopRequireWildcard(_constants);
 
-var _condition = __webpack_require__(374);
+var _condition = __webpack_require__(375);
 
 var _condition2 = _interopRequireDefault(_condition);
 
-var _operators = __webpack_require__(394);
+var _operators = __webpack_require__(395);
 
 var _operators2 = _interopRequireDefault(_operators);
 
-var _value = __webpack_require__(396);
+var _value = __webpack_require__(397);
 
 var _value2 = _interopRequireDefault(_value);
 
-var _actionBar = __webpack_require__(399);
+var _actionBar = __webpack_require__(400);
 
 var _actionBar2 = _interopRequireDefault(_actionBar);
 
@@ -57269,7 +57425,7 @@ var _dataFilter = __webpack_require__(223);
 
 var _dataFilter2 = _interopRequireDefault(_dataFilter);
 
-var _conditionUpdateObserver = __webpack_require__(400);
+var _conditionUpdateObserver = __webpack_require__(401);
 
 var _conditionUpdateObserver2 = _interopRequireDefault(_conditionUpdateObserver);
 
@@ -57277,7 +57433,7 @@ var _utils = __webpack_require__(63);
 
 var _constants2 = __webpack_require__(157);
 
-__webpack_require__(401);
+__webpack_require__(402);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -58305,7 +58461,7 @@ var Filters = function (_BasePlugin) {
 exports.default = Filters;
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58343,7 +58499,7 @@ var _input = __webpack_require__(159);
 
 var _input2 = _interopRequireDefault(_input);
 
-var _select = __webpack_require__(393);
+var _select = __webpack_require__(394);
 
 var _select2 = _interopRequireDefault(_select);
 
@@ -58664,7 +58820,7 @@ var ConditionComponent = function (_BaseComponent) {
 exports.default = ConditionComponent;
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58721,7 +58877,7 @@ var stateSaver = (_stateSaver = {}, _defineProperty(_stateSaver, PROP_PREFIX, {}
 exports.default = stateSaver;
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58752,7 +58908,7 @@ function condition() {
 });
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58785,7 +58941,7 @@ function condition(dataRow, inputValues) {
 });
 
 /***/ }),
-/* 378 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58818,7 +58974,7 @@ function condition(dataRow, inputValues) {
 });
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58860,7 +59016,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58902,7 +59058,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58944,7 +59100,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58986,7 +59142,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59019,7 +59175,7 @@ function condition(dataRow, inputValues) {
 });
 
 /***/ }),
-/* 384 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59059,7 +59215,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 385 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59099,7 +59255,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 386 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59132,7 +59288,7 @@ function condition(dataRow, inputValues) {
 });
 
 /***/ }),
-/* 387 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59174,7 +59330,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 388 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59216,7 +59372,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 389 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59258,7 +59414,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 390 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59305,7 +59461,7 @@ function condition(dataRow) {
 });
 
 /***/ }),
-/* 391 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59334,7 +59490,7 @@ function condition() {
 });
 
 /***/ }),
-/* 392 */
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59363,7 +59519,7 @@ function condition() {
 });
 
 /***/ }),
-/* 393 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59671,7 +59827,7 @@ var SelectUI = function (_BaseUI) {
 exports.default = SelectUI;
 
 /***/ }),
-/* 394 */
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59701,7 +59857,7 @@ var _disjunction = __webpack_require__(220);
 
 var _disjunctionAndVariable = __webpack_require__(221);
 
-var _radioInput = __webpack_require__(395);
+var _radioInput = __webpack_require__(396);
 
 var _radioInput2 = _interopRequireDefault(_radioInput);
 
@@ -59918,7 +60074,7 @@ var OperatorsComponent = function (_BaseComponent) {
 exports.default = OperatorsComponent;
 
 /***/ }),
-/* 395 */
+/* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60060,7 +60216,7 @@ var RadioInputUI = function (_BaseUI) {
 exports.default = RadioInputUI;
 
 /***/ }),
-/* 396 */
+/* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60092,7 +60248,7 @@ var _base = __webpack_require__(83);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _multipleSelect = __webpack_require__(397);
+var _multipleSelect = __webpack_require__(398);
 
 var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
@@ -60354,7 +60510,7 @@ var ValueComponent = function (_BaseComponent) {
 exports.default = ValueComponent;
 
 /***/ }),
-/* 397 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60390,7 +60546,7 @@ var _input = __webpack_require__(159);
 
 var _input2 = _interopRequireDefault(_input);
 
-var _link = __webpack_require__(398);
+var _link = __webpack_require__(399);
 
 var _link2 = _interopRequireDefault(_link);
 
@@ -60806,7 +60962,7 @@ function itemsToValue(availableItems) {
 }
 
 /***/ }),
-/* 398 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60897,7 +61053,7 @@ var LinkUI = function (_BaseUI) {
 exports.default = LinkUI;
 
 /***/ }),
-/* 399 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61071,7 +61227,7 @@ var ActionBarComponent = function (_BaseComponent) {
 exports.default = ActionBarComponent;
 
 /***/ }),
-/* 400 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61356,13 +61512,13 @@ var ConditionUpdateObserver = function () {
 exports.default = ConditionUpdateObserver;
 
 /***/ }),
-/* 401 */
+/* 402 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 402 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61392,15 +61548,15 @@ var _plugins = __webpack_require__(6);
 
 var _utils = __webpack_require__(36);
 
-var _sheet = __webpack_require__(403);
+var _sheet = __webpack_require__(404);
 
 var _sheet2 = _interopRequireDefault(_sheet);
 
-var _dataProvider = __webpack_require__(412);
+var _dataProvider = __webpack_require__(413);
 
 var _dataProvider2 = _interopRequireDefault(_dataProvider);
 
-var _undoRedoSnapshot = __webpack_require__(413);
+var _undoRedoSnapshot = __webpack_require__(414);
 
 var _undoRedoSnapshot2 = _interopRequireDefault(_undoRedoSnapshot);
 
@@ -61965,7 +62121,7 @@ var Formulas = function (_BasePlugin) {
 exports.default = Formulas;
 
 /***/ }),
-/* 403 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61993,17 +62149,17 @@ var _value = __webpack_require__(44);
 
 var _value2 = _interopRequireDefault(_value);
 
-var _reference = __webpack_require__(404);
+var _reference = __webpack_require__(405);
 
 var _reference2 = _interopRequireDefault(_reference);
 
 var _utils = __webpack_require__(36);
 
-var _matrix = __webpack_require__(405);
+var _matrix = __webpack_require__(406);
 
 var _matrix2 = _interopRequireDefault(_matrix);
 
-var _alterManager = __webpack_require__(406);
+var _alterManager = __webpack_require__(407);
 
 var _alterManager2 = _interopRequireDefault(_alterManager);
 
@@ -62426,7 +62582,7 @@ var Sheet = function () {
 exports.default = Sheet;
 
 /***/ }),
-/* 404 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62485,7 +62641,7 @@ var CellReference = function (_BaseCell) {
 exports.default = CellReference;
 
 /***/ }),
-/* 405 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62741,7 +62897,7 @@ var Matrix = function () {
 exports.default = Matrix;
 
 /***/ }),
-/* 406 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62761,23 +62917,23 @@ var _localHooks = __webpack_require__(31);
 
 var _localHooks2 = _interopRequireDefault(_localHooks);
 
-var _columnSorting = __webpack_require__(407);
+var _columnSorting = __webpack_require__(408);
 
 var columnSorting = _interopRequireWildcard(_columnSorting);
 
-var _insertColumn = __webpack_require__(408);
+var _insertColumn = __webpack_require__(409);
 
 var insertColumn = _interopRequireWildcard(_insertColumn);
 
-var _insertRow = __webpack_require__(409);
+var _insertRow = __webpack_require__(410);
 
 var insertRow = _interopRequireWildcard(_insertRow);
 
-var _removeColumn = __webpack_require__(410);
+var _removeColumn = __webpack_require__(411);
 
 var removeColumn = _interopRequireWildcard(_removeColumn);
 
-var _removeRow = __webpack_require__(411);
+var _removeRow = __webpack_require__(412);
 
 var removeRow = _interopRequireWildcard(_removeRow);
 
@@ -62917,7 +63073,7 @@ function registerOperation(name, descriptor) {
 }
 
 /***/ }),
-/* 407 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63001,7 +63157,7 @@ function operate() {
 }
 
 /***/ }),
-/* 408 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63106,7 +63262,7 @@ function customTranslateModifier(cell, axis, delta, startFromIndex) {
 }
 
 /***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63211,7 +63367,7 @@ function customTranslateModifier(cell, axis, delta, startFromIndex) {
 }
 
 /***/ }),
-/* 410 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63368,7 +63524,7 @@ function customTranslateModifier(cell, axis, delta, startFromIndex) {
 }
 
 /***/ }),
-/* 411 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63525,7 +63681,7 @@ function customTranslateModifier(cell, axis, delta, startFromIndex) {
 }
 
 /***/ }),
-/* 412 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63819,7 +63975,7 @@ var DataProvider = function () {
 exports.default = DataProvider;
 
 /***/ }),
-/* 413 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63833,7 +63989,7 @@ var _array = __webpack_require__(0);
 
 var _number = __webpack_require__(4);
 
-var _stack = __webpack_require__(414);
+var _stack = __webpack_require__(415);
 
 var _stack2 = _interopRequireDefault(_stack);
 
@@ -63956,7 +64112,7 @@ var UndoRedoSnapshot = function () {
 exports.default = UndoRedoSnapshot;
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64056,7 +64212,7 @@ var Stack = function () {
 exports.default = Stack;
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64086,13 +64242,13 @@ var _dateCalculator = __webpack_require__(225);
 
 var _dateCalculator2 = _interopRequireDefault(_dateCalculator);
 
-var _ganttChartDataFeed = __webpack_require__(416);
+var _ganttChartDataFeed = __webpack_require__(417);
 
 var _ganttChartDataFeed2 = _interopRequireDefault(_ganttChartDataFeed);
 
 var _utils = __webpack_require__(226);
 
-__webpack_require__(417);
+__webpack_require__(418);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65092,7 +65248,7 @@ var GanttChart = function (_BasePlugin) {
 exports.default = GanttChart;
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65516,13 +65672,13 @@ var GanttChartDataFeed = function () {
 exports.default = GanttChartDataFeed;
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65741,7 +65897,7 @@ var HeaderTooltips = function (_BasePlugin) {
 exports.default = HeaderTooltips;
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65769,11 +65925,11 @@ var _base2 = _interopRequireDefault(_base);
 
 var _src = __webpack_require__(15);
 
-var _ghostTable = __webpack_require__(420);
+var _ghostTable = __webpack_require__(421);
 
 var _ghostTable2 = _interopRequireDefault(_ghostTable);
 
-__webpack_require__(421);
+__webpack_require__(422);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66519,7 +66675,7 @@ var NestedHeaders = function (_BasePlugin) {
 exports.default = NestedHeaders;
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66670,13 +66826,13 @@ var GhostTable = function () {
 exports.default = GhostTable;
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 422 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66700,11 +66856,11 @@ var _array = __webpack_require__(0);
 
 var _src = __webpack_require__(15);
 
-var _dataManager = __webpack_require__(423);
+var _dataManager = __webpack_require__(424);
 
 var _dataManager2 = _interopRequireDefault(_dataManager);
 
-var _collapsing = __webpack_require__(424);
+var _collapsing = __webpack_require__(425);
 
 var _collapsing2 = _interopRequireDefault(_collapsing);
 
@@ -66712,11 +66868,11 @@ var _headers = __webpack_require__(227);
 
 var _headers2 = _interopRequireDefault(_headers);
 
-var _contextMenu = __webpack_require__(425);
+var _contextMenu = __webpack_require__(426);
 
 var _contextMenu2 = _interopRequireDefault(_contextMenu);
 
-__webpack_require__(426);
+__webpack_require__(427);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -67413,7 +67569,7 @@ var NestedRows = function (_BasePlugin) {
 exports.default = NestedRows;
 
 /***/ }),
-/* 423 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68187,7 +68343,7 @@ var DataManager = function () {
 exports.default = DataManager;
 
 /***/ }),
-/* 424 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68780,7 +68936,7 @@ var CollapsingUI = function (_BaseUI) {
 exports.default = CollapsingUI;
 
 /***/ }),
-/* 425 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68944,13 +69100,13 @@ var ContextMenuUI = function (_BaseUI) {
 exports.default = ContextMenuUI;
 
 /***/ }),
-/* 426 */
+/* 427 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 427 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68978,15 +69134,15 @@ var _plugins = __webpack_require__(6);
 
 var _predefinedItems = __webpack_require__(43);
 
-var _hideColumn = __webpack_require__(428);
+var _hideColumn = __webpack_require__(429);
 
 var _hideColumn2 = _interopRequireDefault(_hideColumn);
 
-var _showColumn = __webpack_require__(429);
+var _showColumn = __webpack_require__(430);
 
 var _showColumn2 = _interopRequireDefault(_showColumn);
 
-__webpack_require__(430);
+__webpack_require__(431);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69627,7 +69783,7 @@ function hiddenRenderer(hotInstance, td) {
 exports.default = HiddenColumns;
 
 /***/ }),
-/* 428 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69690,7 +69846,7 @@ function hideColumnItem(hiddenColumnsPlugin) {
 }
 
 /***/ }),
-/* 429 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69830,13 +69986,13 @@ function showColumnItem(hiddenColumnsPlugin) {
 }
 
 /***/ }),
-/* 430 */
+/* 431 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 431 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69862,15 +70018,15 @@ var _array = __webpack_require__(0);
 
 var _plugins = __webpack_require__(6);
 
-var _hideRow = __webpack_require__(432);
+var _hideRow = __webpack_require__(433);
 
 var _hideRow2 = _interopRequireDefault(_hideRow);
 
-var _showRow = __webpack_require__(433);
+var _showRow = __webpack_require__(434);
 
 var _showRow2 = _interopRequireDefault(_showRow);
 
-__webpack_require__(434);
+__webpack_require__(435);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70563,7 +70719,7 @@ var HiddenRows = function (_BasePlugin) {
 exports.default = HiddenRows;
 
 /***/ }),
-/* 432 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70626,7 +70782,7 @@ function hideRowItem(hiddenRowsPlugin) {
 }
 
 /***/ }),
-/* 433 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70769,13 +70925,13 @@ function showRowItem(hiddenRowsPlugin) {
 }
 
 /***/ }),
-/* 434 */
+/* 435 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70797,7 +70953,7 @@ var _number = __webpack_require__(4);
 
 var _plugins = __webpack_require__(6);
 
-var _rowsMapper = __webpack_require__(436);
+var _rowsMapper = __webpack_require__(437);
 
 var _rowsMapper2 = _interopRequireDefault(_rowsMapper);
 
@@ -70911,6 +71067,9 @@ var TrimRows = function (_BasePlugin) {
       });
       this.addHook('unmodifyRow', function (row, source) {
         return _this2.onUnmodifyRow(row, source);
+      });
+      this.addHook('beforeCreateRow', function (index, amount, source) {
+        return _this2.onBeforeCreateRow(index, amount, source);
       });
       this.addHook('afterCreateRow', function (index, amount) {
         return _this2.onAfterCreateRow(index, amount);
@@ -71099,6 +71258,21 @@ var TrimRows = function (_BasePlugin) {
     }
 
     /**
+     * `beforeCreateRow` hook callback.
+     *
+     * @private
+     * @param {Number} index Index of the newly created row.
+     * @param {Number} amount Amount of created rows.
+     * @param {String} source Source of the change.
+     */
+
+  }, {
+    key: 'onBeforeCreateRow',
+    value: function onBeforeCreateRow(index, amount, source) {
+      return !(this.isEnabled() && this.trimmedRows.length > 0 && source === 'auto');
+    }
+
+    /**
      * On after create row listener.
      *
      * @private
@@ -71184,7 +71358,7 @@ var TrimRows = function (_BasePlugin) {
 exports.default = TrimRows;
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71268,7 +71442,7 @@ var RowsMapper = function () {
 exports.default = RowsMapper;
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71645,7 +71819,7 @@ _base2.default.registerOverlay(_base2.default.CLONE_BOTTOM, BottomOverlay);
 exports.default = BottomOverlay;
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
