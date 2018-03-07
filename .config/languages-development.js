@@ -60,7 +60,7 @@ const ruleForSnippetsInjection = {
   })
 };
 
-module.exports.create = function create() {
+module.exports = function create() {
   const config = {
     entry: getEntryJsFiles(),
     output: {

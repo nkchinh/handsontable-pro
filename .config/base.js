@@ -11,8 +11,11 @@ let licenseBody = fs.readFileSync(path.resolve(__dirname, '../LICENSE'), 'utf8')
 licenseBody += '\nVersion: ' + process.env.HOT_VERSION;
 licenseBody += '\nRelease date: ' + process.env.HOT_RELEASE_DATE + ' (built at ' + process.env.HOT_BUILD_DATE + ')';
 
-module.exports.create = function create(envArgs) {
+module.exports = function create(envArgs) {
   const config = {
+    entry:{
+      Handsontable: './src/index'
+    },
     devtool: false,
     output: {
       library: 'Handsontable',
@@ -36,11 +39,18 @@ module.exports.create = function create(envArgs) {
           }),
         },
         {
-          test: [
-             // Disable loading languages from numbro and moment into final bundle
-            /numbro\/languages/,
-            /moment\/locale/,
-          ],
+          // Disable loading languages from numbro and moment into final bundle
+          test: /numbro\/languages/,
+          loader: path.resolve(__dirname, 'loader/empty-loader.js'),
+        },
+        {
+          // Disable loading languages from numbro and moment into final bundle
+          test: /numbro\/dist\/languages/,
+          loader: path.resolve(__dirname, 'loader/empty-loader.js'),
+        },
+        {
+          // Disable loading languages from numbro and moment into final bundle
+          test: /moment\/locale/,          
           loader: path.resolve(__dirname, 'loader/empty-loader.js'),
         },
         {
@@ -48,6 +58,9 @@ module.exports.create = function create(envArgs) {
           loader: 'babel-loader',
           exclude: [
             /node_modules\/(?!handsontable)/,
+            /numbro\/languages/,
+            /numbro\/dist\/languages/,
+            /moment\/locale/, 
           ],
           options: {
             cacheDirectory: false, // Disable cache. Necessary for injected variables into source code via hot.config.js

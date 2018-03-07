@@ -10,8 +10,8 @@ const JasmineHtml = require('./plugin/jasmine-html');
 const path = require('path');
 const webpack = require('webpack');
 
-module.exports.create = function create(envArgs) {
-  const config = configFactory.create(envArgs);
+module.exports = function create(envArgs) {
+  const config = configFactory(envArgs);
 
   config.forEach(function(c) {
     c.devtool = 'cheap-module-source-map';

@@ -13,10 +13,10 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const configFactory = require('./development');
 
-const PACKAGE_FILENAME = process.env.HOT_FILENAME;
+const PACKAGE_FILENAME = process.env.HOT_FILENAME || "handsontable";
 
-module.exports.create = function create(envArgs) {
-  const config = configFactory.create(envArgs);
+module.exports = function create(envArgs) {
+  const config = configFactory(envArgs);
 
   // Add uglifyJs plugin for each configuration
   config.forEach(function(c) {

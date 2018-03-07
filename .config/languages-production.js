@@ -8,8 +8,8 @@ const webpack  = require('webpack');
 const configFactory = require('./languages-development');
 const OUTPUT_LANGUAGES_DIRECTORY = 'dist/languages';
 
-module.exports.create = function create() {
-  const configs = configFactory.create();
+module.exports = function create() {
+  const configs = configFactory();
 
   // Add uglifyJs plugin for each configuration
   configs.forEach(function(config) {

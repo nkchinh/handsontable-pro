@@ -11,8 +11,8 @@ const webpack = require('webpack');
 const configFactory = require('./test-e2e');
 const JasmineHtml = require('./plugin/jasmine-html');
 
-module.exports.create = function create(envArgs) {
-  const config = configFactory.create(envArgs);
+module.exports = function create(envArgs) {
+  const config = configFactory(envArgs);
 
   config.forEach(function(c) {
     // Remove all 'HtmlWebpackPlugin' instances

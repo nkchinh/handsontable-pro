@@ -12,8 +12,8 @@ const webpack = require('webpack');
 
 const PACKAGE_FILENAME = process.env.HOT_FILENAME;
 
-module.exports.create = function create(envArgs) {
-  const config = configFactory.create(envArgs);
+module.exports = function create(envArgs) {
+  const config = configFactory(envArgs);
 
   config.forEach(function(c) {
     c.devtool = 'source-map';
