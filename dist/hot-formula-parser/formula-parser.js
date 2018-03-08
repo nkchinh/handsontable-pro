@@ -18670,7 +18670,7 @@ exports.HLOOKUP = function (needle, table, index, rangeLookup) {
 
 var error = __webpack_require__(0);
 
-exports.DBIND = function(norm, fiels){
+exports.DBIND = function(normCode, field){
 	if(window && window.__ktxh_formula && window.__ktxh_formula.dataContext){
 		return window.__ktxh_formula.dataContext.getValue(normCode, field);
 	}
